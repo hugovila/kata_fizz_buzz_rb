@@ -8,12 +8,55 @@ class Fizz_buzz
   FIZZBUZZ = 15
 
   def tell_me(number)
-    result = number
-    result = 'fizz' if number % FIZZ == 0
-    result = 'buzz' if number % BUZZ == 0
-    result = 'fizzbuzz' if number % FIZZBUZZ == 0
-    result = 0 if number == 0
-    return result
+    return call(:zero, number)
+  end
+
+  def call(function, number)
+    if function
+      send(function, number)
+    else
+      return number
+    end
+  end
+
+  def zero(number)
+    next_function = :fizzbuzz
+
+    if number == 0
+      return 0
+    else
+      call(next_function, number)
+    end
+  end
+
+  def fizzbuzz(number)
+    next_function = :fizz
+
+    if number % FIZZBUZZ == 0
+      return 'fizzbuzz'
+    else
+      call(next_function, number)
+    end
+  end
+
+  def fizz(number)
+    next_function = :buzz
+
+    if number % FIZZ == 0
+      return 'fizz'
+    else
+      call(next_function, number)
+    end
+  end
+
+  def buzz(number)
+    next_function = nil
+
+    if number % BUZZ == 0
+      return 'buzz'
+    else
+      call(next_function, number)
+    end
   end
 
   def solution_of(first_numbers)
